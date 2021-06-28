@@ -1,5 +1,5 @@
 {
-    "name": "SCTK Double Finder", 
+    "name": "SCTK Doublet Finder", 
     "description": "Run a doublet-finding QC algorithm on your single-cell RNA-seq data. This will identify likely doublets/multiplets and remove them in preparation for downstream analyses. Additionally, it will produce a file that will identify which samples were likely doublets.", 
     "inputs": {
         "SctkDoubletFinder.raw_counts": {
