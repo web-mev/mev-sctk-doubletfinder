@@ -1,0 +1,34 @@
+{
+    "name": "SCTK Double Finder", 
+    "description": "Run a doublet-finding QC algorithm on your single-cell RNA-seq data. This will identify likely doublets/multiplets and remove them in preparation for downstream analyses. Additionally, it will produce a file that will identify which samples were likely doublets.", 
+    "inputs": {
+        "SctkDoubletFinder.raw_counts": {
+            "description": "The input count matrix. Must be an integer-based table where the counts correspond to gene expression.", 
+            "name": "Count matrix:", 
+            "required": true, 
+            "spec": {
+                "attribute_type": "DataResource", 
+                "resource_types": ["I_MTX", "RNASEQ_COUNT_MTX"], 
+                "many": false
+            }
+        }
+    }, 
+    "outputs": {
+        "SctkDoubletFinder.doublet_removed_counts": {
+            "spec": {
+                "attribute_type": "DataResource", 
+                "resource_type": "RNASEQ_COUNT_MTX",
+                "many": false
+            }
+        },
+        "SctkDoubletFinder.doublet_ids": {
+            "spec": {
+                "attribute_type": "DataResource", 
+                "resource_type": "FT",
+                "many": false
+            }
+        }
+    }, 
+    "mode": "cromwell",
+    "workspace_operation": true
+}
