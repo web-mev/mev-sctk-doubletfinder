@@ -103,7 +103,7 @@ sce.sub <- subsetSCECols(
 output_cnts <- data.frame(as.matrix(counts(sce.sub)))
 # May be unnecessary to rename rownames.
 rownames(output_cnts) <- rownames(counts(sce.sub))
-doublet_filename <- paste(
+counts_filename <- paste(
     opt$output_file_prefix, 
     method_str,
     'tsv', 
@@ -111,7 +111,7 @@ doublet_filename <- paste(
 )
 write.table(
     output_cnts,
-    output_filename,
+    counts_filename,
     sep = "\t",
     quote = F,
     row.names = T
