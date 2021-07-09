@@ -31,7 +31,7 @@ task runDoubletFinder {
 
     output {
         File output_counts = glob("${output_name_prefix}*")[0]
-        File doubled_finder_ids = glob("${doublet_file_prefix}*")[0]
+        File output_ids = glob("${doublet_file_prefix}*")[0]
     }
 
     runtime {
