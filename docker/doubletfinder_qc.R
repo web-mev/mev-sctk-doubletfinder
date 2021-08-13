@@ -42,7 +42,21 @@ cnts <- read.table(
     file = opt$input_file,
     sep = "\t",
     row.names = 1,
-    header=T
+    header=T,
+    check.names = FALSE
+)
+
+# above, we set check.names=F to prevent the mangling of the sample names.
+# Now, we stash those original sample names and run make.names, so that any downstream
+# functions, etc. don't run into trouble. In the end, we convert back to the original names
+orig_cols = colnames(cnts)
+new_colnames = make.names(orig_cols)
+colnames(cnts) = new_colnames
+
+colname_mapping = data.frame(
+    orig_names = orig_cols,
+    row.names=new_colnames,
+    stringsAsFactors=F
 )
 
 # change to a sparse matrix representation, necessary for SCE
@@ -76,6 +90,13 @@ df.doublets <- data.frame(
     )
 )
 
+# remap the barcodes back to the originals. Do this by merging with the mapping
+# dataframe, dropping the possibly mangled cell_barcode column, and then renaming
+# the columns
+df.doublets = merge(df.doublets,colname_mapping,by.x='cell_barcode', by.y=0)
+df.doublets = df.doublets[,c('orig_names','doublet_class')]
+colnames(df.doublets) = c('cell_barcode','doublet_class')
+
 # Export doublet classification to file
 doublet_filename <- paste(
     opt$doublet_file_prefix, 
@@ -99,10 +120,11 @@ sce.sub <- subsetSCECols(
     colData = "doubletFinder_doublet_label_resolution_1.5 == 'Singlet'"
 )
 
-# Export count matrix to file
+# Export count matrix to file, remapping the cell barcodes
 output_cnts <- data.frame(as.matrix(counts(sce.sub)))
-# May be unnecessary to rename rownames.
-rownames(output_cnts) <- rownames(counts(sce.sub))
+output_cnts = merge(output_cnts,colname_mapping,by.x=0, by.y=0)
+rownames(output_cnts) = output_cnts[,'orig_names']
+output_cnts = subset(output_cnts, select=-c(Row.names,orig_names))
 counts_filename <- paste(
     opt$output_file_prefix, 
     method_str,
