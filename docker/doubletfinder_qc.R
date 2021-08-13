@@ -122,9 +122,7 @@ sce.sub <- subsetSCECols(
 
 # Export count matrix to file, remapping the cell barcodes
 output_cnts <- data.frame(as.matrix(counts(sce.sub)))
-output_cnts = merge(output_cnts,colname_mapping,by.x=0, by.y=0)
-rownames(output_cnts) = output_cnts[,'orig_names']
-output_cnts = subset(output_cnts, select=-c(Row.names,orig_names))
+colnames(output_cnts) = colname_mapping[colnames(output_cnts), 'orig_names']
 counts_filename <- paste(
     opt$output_file_prefix, 
     method_str,
