@@ -15,6 +15,7 @@
     }, 
     "outputs": {
         "SctkDoubletFinder.doublet_removed_counts": {
+            "required": true,
             "spec": {
                 "attribute_type": "DataResource", 
                 "resource_type": "RNASEQ_COUNT_MTX",
