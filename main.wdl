@@ -35,7 +35,7 @@ task runDoubletFinder {
     }
 
     runtime {
-        docker: "hsphqbrc/mev-sctk-doubletfinder"
+        docker: "ghcr.io/web-mev/mev-sctk-doubletfinder"
         cpu: 2
         memory: "16 G"
         disks: "local-disk " + disk_size + " HDD"
