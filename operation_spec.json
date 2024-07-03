@@ -29,7 +29,7 @@
             "converter": "api.converters.data_resource.RemoteNextflowSingleDataResourceConverter",
             "spec": {
                 "attribute_type": "DataResource", 
-                "resource_type": "FT",
+                "resource_type": "ANN",
                 "many": false
             }
         }
